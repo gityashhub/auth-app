@@ -43,7 +43,6 @@ app.post("/api/register", async (req, res) => {
 // Login Route
 app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) return res.json({ status: "error", error: "Email and password required" });
     const user = await User.findOne({ email });
     if (!user) return res.json({ status: "error", error: "User not found" });
 
@@ -54,7 +53,7 @@ app.post("/api/login", async (req, res) => {
     res.json({ status: "ok", token });
 });
 
-// Protected route example
+// Protected route
 app.get("/api/profile", async (req, res) => {
     const token = req.headers["x-access-token"];
     if (!token) return res.status(401).json({ error: "Missing token" });
